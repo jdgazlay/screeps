@@ -19,12 +19,12 @@ module.exports.loop = function () {
     var HARVESTER_NEEDED = 3;
     var BUILDER_NEEDED = 2;
     var UPGRADER_NEEDED = 3;
-    var FIXER_NEEDED = 1;
-    var MINER_NEEDED = 1;
-    var CARRIER_NEEDED = 3;
-    var ATTACKER_NEEDED = 2;
-    var CLAIMER_NEEDED = 1;
-    var HEALER_NEEDED = 1;
+    var FIXER_NEEDED = 0;
+    var MINER_NEEDED = 0;
+    var CARRIER_NEEDED = 0;
+    var ATTACKER_NEEDED = 0;
+    var CLAIMER_NEEDED = 0;
+    var HEALER_NEEDED = 0;
 
 
     //count how many harvesters, builders, and upgraders we have on the field at the moment and build more if needed.
@@ -40,10 +40,10 @@ module.exports.loop = function () {
 
 
     //Constants for the bodies of each creep. makes it easy to change in one place
-    var HARVESTER_BODY = [MOVE, WORK, CARRY, CARRY];
-    var BUILDER_BODY = [WORK, CARRY, CARRY, MOVE];
-    var UPGRADER_BODY = [WORK, CARRY, CARRY, MOVE];
-    var FIXER_BODY = [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE];
+    var HARVESTER_BODY = [MOVE, MOVE, MOVE, WORK, WORK, CARRY, CARRY, CARRY];
+    var BUILDER_BODY = [MOVE, MOVE, MOVE, WORK, WORK, CARRY, CARRY, CARRY];
+    var UPGRADER_BODY = [MOVE, MOVE, MOVE, WORK, WORK, CARRY, CARRY, CARRY];
+    var FIXER_BODY = [MOVE, MOVE, WORK, CARRY, CARRY];
     var MINER_BODY = [WORK, WORK, WORK, WORK, WORK, MOVE, MOVE];
     var CARRIER_BODY = [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE];
     var ATTACKER_BODY = [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK];
