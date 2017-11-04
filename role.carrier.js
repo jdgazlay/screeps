@@ -26,8 +26,8 @@ var roleCarrier = {
                 creep.moveTo(Game.flags.room2SourceFlag); //so we move to the flag and room
             }
             else { // if it's not undefined, then we can see the room, so we'll move to the energy source
-                var droppedEnergy = Game.flags.room2SourceFlag.room.find(FIND_DROPPED_ENERGY);
-                var closestDroppedEnergy = creep.room.find(FIND_DROPPED_ENERGY)[0];
+                var droppedEnergy = Game.flags.room2SourceFlag.room.find(FIND_DROPPED_RESOURCES);
+                var closestDroppedEnergy = creep.room.find(FIND_DROPPED_RESOURCES)[0];
                 if (creep.pos.isNearTo(closestDroppedEnergy)) { // as we move, pickup any energy that is near us.
                     creep.pickup(closestDroppedEnergy);
                 }

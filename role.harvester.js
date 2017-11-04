@@ -34,7 +34,7 @@ var roleHarvester = {
                         creep.moveTo(sources[0]);
                     }
 
-                    var closestDroppedEnergy = creep.room.find(FIND_DROPPED_ENERGY)[0];
+                    var closestDroppedEnergy = creep.room.find(FIND_DROPPED_RESOURCES)[0];
                     if (creep.pos.isNearTo(closestDroppedEnergy)) { // as we move, pickup any energy that is near us.
                         creep.pickup(closestDroppedEnergy);
                     }
@@ -46,7 +46,7 @@ var roleHarvester = {
                     creep.moveTo(sources[1]);
                 }
 
-                var closestDroppedEnergy = creep.room.find(FIND_DROPPED_ENERGY)[0];
+                var closestDroppedEnergy = creep.room.find(FIND_DROPPED_RESOURCES)[0];
 
                 if (creep.pos.isNearTo(closestDroppedEnergy)) { // as we move, pickup any energy that is near us.
                     creep.pickup(closestDroppedEnergy);
@@ -124,7 +124,7 @@ var roleHarvester = {
         }
     }
 	}
-	
+
 };
 
 module.exports = roleHarvester;
