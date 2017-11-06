@@ -19,7 +19,7 @@ module.exports.loop = function () {
     var HARVESTER_NEEDED = 3;
     var BUILDER_NEEDED = 2;
     var UPGRADER_NEEDED = 3;
-    var FIXER_NEEDED = 0;
+    var FIXER_NEEDED = 1;
     var MINER_NEEDED = 0;
     var CARRIER_NEEDED = 0;
     var ATTACKER_NEEDED = 0;
@@ -141,7 +141,7 @@ module.exports.loop = function () {
     }
 
     //we don't have a tower yet, but I stole this from the tutorial. basically call the tower and search for damage or enemies.... I really need to get a tower.
-    var tower = Game.getObjectById('57b1367f5b7593bc4a60c83e');
+    var tower = Game.getObjectById('754fe20770bb647');
     if (tower) {
 
         var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
