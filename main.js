@@ -11,6 +11,7 @@ var roleFixer = require('role.fixer'); //patch for temporary fixer time instead 
 var roleMiner = require('role.miner');
 var roleCarrier = require('role.carrier');
 var roleHealer = require('role.healer');
+var tower = require('tower');
 
 module.exports.loop = function () {
     PathFinder.use(true);
@@ -19,7 +20,7 @@ module.exports.loop = function () {
     var HARVESTER_NEEDED = 3;
     var BUILDER_NEEDED = 2;
     var UPGRADER_NEEDED = 3;
-    var FIXER_NEEDED = 1;
+    var FIXER_NEEDED = 2;
     var MINER_NEEDED = 0;
     var CARRIER_NEEDED = 0;
     var ATTACKER_NEEDED = 0;
@@ -140,67 +141,70 @@ module.exports.loop = function () {
 
     }
 
-    //we don't have a tower yet, but I stole this from the tutorial. basically call the tower and search for damage or enemies.... I really need to get a tower.
-    var tower = Game.getObjectById('754fe20770bb647');
-    if (tower) {
-
-        var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-
-        if (!closestHostile) {
-            var closestDamagedCreep = tower.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (creep) => creep.hits < creep.hitsMax});
-            if (!closestDamagedCreep) {
-                var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => (structure.structureType == STRUCTURE_ROAD && structure.hits < (structure.hitsMax*.3)) || (structure.structureType == STRUCTURE_WALL && structure.hits < 1000000) || (structure.structureType == STRUCTURE_RAMPART && structure.hits < 1000000) || (structure.structureType == STRUCTURE_CONTAINER && structure.hits < structure.hitsMax)});
-                if (closestDamagedStructure) {
-                    tower.repair(closestDamagedStructure); //repair things if there's no enemies in the room
-                }
-            } else {
-                tower.heal(closestDamagedCreep);
-            }
-        } else {
-
-            var damagedCreepClosestToEnemy = closestHostile.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (creep) => (creep.hits <= (creep.hitsMax * .5) && (creep.getActiveBodyparts(ATTACK) >= 1 || creep.getActiveBodyparts(RANGED_ATTACK) >= 1)) || creep.hits <= (creep.hitsMax * .2)});
-            if (damagedCreepClosestToEnemy) { //if there's a creep fighting, lets heal him
-
-                tower.heal(damagedCreepClosestToEnemy);
-
-            } else {
-                tower.attack(closestHostile);
-            }
-
-        }
-
-    }
+    var towers = Game.spawns.Spawn1.room.find(FIND_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER, my: true}});
+    towers.forEach(tower.run);
 
     //we don't have a tower yet, but I stole this from the tutorial. basically call the tower and search for damage or enemies.... I really need to get a tower.
-    var tower2 = Game.getObjectById('57ba470f4b53edc42dc7a76d');
-    if (tower2) {
-
-        var closestHostile = tower2.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-
-        if (!closestHostile) {
-            var closestDamagedCreep = tower2.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (creep) => creep.hits < creep.hitsMax});
-            if (!closestDamagedCreep) {
-                var closestDamagedStructure = tower2.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => (structure.structureType == STRUCTURE_ROAD && structure.hits < (structure.hitsMax*.3)) || (structure.structureType == STRUCTURE_WALL && structure.hits < 1000000) || (structure.structureType == STRUCTURE_RAMPART && structure.hits < 1000000) || (structure.structureType == STRUCTURE_CONTAINER && structure.hits < structure.hitsMax)});
-                if (closestDamagedStructure) {
-                    tower2.repair(closestDamagedStructure); //repair things if there's no enemies in the room
-                }
-            } else {
-                tower2.heal(closestDamagedCreep);
-            }
-        } else {
-
-            var damagedCreepClosestToEnemy = closestHostile.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (creep) => (creep.hits <= (creep.hitsMax * .5) && (creep.getActiveBodyparts(ATTACK) >= 1 || creep.getActiveBodyparts(RANGED_ATTACK) >= 1)) || creep.hits <= (creep.hitsMax * .2)});
-            if (damagedCreepClosestToEnemy) { //if there's a creep fighting, lets heal him
-
-                tower2.heal(damagedCreepClosestToEnemy);
-
-            } else {
-                tower2.attack(closestHostile);
-            }
-
-        }
-
-    }
+    // var tower = Game.getObjectById('754fe20770bb647');
+    // if (tower) {
+    //
+    //     var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    //
+    //     if (!closestHostile) {
+    //         var closestDamagedCreep = tower.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (creep) => creep.hits < creep.hitsMax});
+    //         if (!closestDamagedCreep) {
+    //             var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => (structure.structureType == STRUCTURE_ROAD && structure.hits < (structure.hitsMax*.3)) || (structure.structureType == STRUCTURE_WALL && structure.hits < 1000000) || (structure.structureType == STRUCTURE_RAMPART && structure.hits < 1000000) || (structure.structureType == STRUCTURE_CONTAINER && structure.hits < structure.hitsMax)});
+    //             if (closestDamagedStructure) {
+    //                 tower.repair(closestDamagedStructure); //repair things if there's no enemies in the room
+    //             }
+    //         } else {
+    //             tower.heal(closestDamagedCreep);
+    //         }
+    //     } else {
+    //
+    //         var damagedCreepClosestToEnemy = closestHostile.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (creep) => (creep.hits <= (creep.hitsMax * .5) && (creep.getActiveBodyparts(ATTACK) >= 1 || creep.getActiveBodyparts(RANGED_ATTACK) >= 1)) || creep.hits <= (creep.hitsMax * .2)});
+    //         if (damagedCreepClosestToEnemy) { //if there's a creep fighting, lets heal him
+    //
+    //             tower.heal(damagedCreepClosestToEnemy);
+    //
+    //         } else {
+    //             tower.attack(closestHostile);
+    //         }
+    //
+    //     }
+    //
+    // }
+    //
+    // //we don't have a tower yet, but I stole this from the tutorial. basically call the tower and search for damage or enemies.... I really need to get a tower.
+    // var tower2 = Game.getObjectById('57ba470f4b53edc42dc7a76d');
+    // if (tower2) {
+    //
+    //     var closestHostile = tower2.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    //
+    //     if (!closestHostile) {
+    //         var closestDamagedCreep = tower2.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (creep) => creep.hits < creep.hitsMax});
+    //         if (!closestDamagedCreep) {
+    //             var closestDamagedStructure = tower2.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => (structure.structureType == STRUCTURE_ROAD && structure.hits < (structure.hitsMax*.3)) || (structure.structureType == STRUCTURE_WALL && structure.hits < 1000000) || (structure.structureType == STRUCTURE_RAMPART && structure.hits < 1000000) || (structure.structureType == STRUCTURE_CONTAINER && structure.hits < structure.hitsMax)});
+    //             if (closestDamagedStructure) {
+    //                 tower2.repair(closestDamagedStructure); //repair things if there's no enemies in the room
+    //             }
+    //         } else {
+    //             tower2.heal(closestDamagedCreep);
+    //         }
+    //     } else {
+    //
+    //         var damagedCreepClosestToEnemy = closestHostile.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (creep) => (creep.hits <= (creep.hitsMax * .5) && (creep.getActiveBodyparts(ATTACK) >= 1 || creep.getActiveBodyparts(RANGED_ATTACK) >= 1)) || creep.hits <= (creep.hitsMax * .2)});
+    //         if (damagedCreepClosestToEnemy) { //if there's a creep fighting, lets heal him
+    //
+    //             tower2.heal(damagedCreepClosestToEnemy);
+    //
+    //         } else {
+    //             tower2.attack(closestHostile);
+    //         }
+    //
+    //     }
+    //
+    // }
 
     //for every creep on the floor of the game we loop through their roles and decide what module to send them to. I'm also having them say goodbye if this is their final tick.
     for (var name in Game.creeps) {
