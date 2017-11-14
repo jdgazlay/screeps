@@ -19,8 +19,8 @@ module.exports.loop = function () {
     //constant creeps needed counts
     var HARVESTER_NEEDED = 3;
     var BUILDER_NEEDED = 2;
-    var UPGRADER_NEEDED = 3;
-    var FIXER_NEEDED = 2;
+    var UPGRADER_NEEDED = 4;
+    var FIXER_NEEDED = 3;
     var MINER_NEEDED = 0;
     var CARRIER_NEEDED = 0;
     var ATTACKER_NEEDED = 0;
@@ -39,9 +39,18 @@ module.exports.loop = function () {
     var claimerCount = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
     var healerCount = _.filter(Game.creeps, (creep) => creep.memory.role == 'healer');
 
+    var HARVESTER_BODY;
+
+    // put in some disaster detection for if there are 0 creeps and we don't have enemies, then start rebuildling the base again
+    if (_.size(Game.creeps) < 1 || undefined) {
+      if (Game.spawns.Spawn1.room.find(FIND_HOSTILE_CREEPS) < 1 || undefined) {
+        HARVESTER_BODY = [MOVE, MOVE, WORK, CARRY, CARRY];
+      }
+    } else {
+      HARVESTER_BODY = [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY];
+    }
 
     //Constants for the bodies of each creep. makes it easy to change in one place
-    var HARVESTER_BODY = [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY];
     var BUILDER_BODY = [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY];
     var UPGRADER_BODY = [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY];
     var FIXER_BODY = [MOVE, MOVE, WORK, CARRY, CARRY];

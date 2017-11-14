@@ -3,8 +3,8 @@ var tower = {
   run: function (tower) {
 
     // keep walls, ramparts, & roads from breaking
-    const WALL_HITS_MIN = 200;
-    const RAMPART_HITS_MIN = 200;
+    const WALL_HITS_MIN = 1000;
+    const RAMPART_HITS_MIN = 500;
     const ROAD_HITS_MIN = 200;
 
     var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
