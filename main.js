@@ -1,6 +1,5 @@
 /*
-Notes for tonight: need to cache paths and refactor code for those new paths.
-still need to cache the paths. potential logic around pathing and recalculating. need to read on this more.
+TODO - container mining needs to be a thing.
 */
 
 var roleHarvester = require('role.harvester');
@@ -53,8 +52,8 @@ module.exports.loop = function () {
     //Constants for the bodies of each creep. makes it easy to change in one place
     var BUILDER_BODY = [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY];
     var UPGRADER_BODY = [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY];
-    var FIXER_BODY = [MOVE, MOVE, WORK, CARRY, CARRY];
-    var MINER_BODY = [WORK, WORK, WORK, WORK, WORK, MOVE, MOVE];
+    var FIXER_BODY = [MOVE, MOVE, MOVE, MOVE, WORK, WORK, CARRY, CARRY, CARRY, CARRY];
+    var MINER_BODY = [WORK, WORK, WORK, WORK, WORK, MOVE];
     var CARRIER_BODY = [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE];
     var ATTACKER_BODY = [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK];
     var CLAIMER_BODY = [CLAIM, CLAIM, MOVE, MOVE];
